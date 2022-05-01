@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.parkingLotApp.models.ParkingFloorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-01T11:41:18" hostname="Madhureshs-MacBook-Pro.local" time="0.011">
+<testsuite name="com.parkingLotApp.models.ParkingFloorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-01T13:00:56" hostname="Madhureshs-MacBook-Pro.local" time="0.011">
   <properties/>
   <testcase name="unparkVehicle()" classname="com.parkingLotApp.models.ParkingFloorTest" time="0.011"/>
   <system-out><![CDATA[[1, 2, 3]

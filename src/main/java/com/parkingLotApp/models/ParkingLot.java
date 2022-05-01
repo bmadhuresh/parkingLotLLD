@@ -25,15 +25,17 @@ public class ParkingLot {
         for(int i=0; i<floors; ++i){
             this.parkingFloors.add(new ParkingFloor(parkingLotId+"_"+Integer.toString(i+1), slotsPerFloor));
         }
+        // Created parking lot with 2 floors and 6 slots per floor
+        System.out.println("Created parking lot with "+ floors+ " floors and "+ slotsPerFloor + " slots per floor");
     }
 
-    public String parkVehicle(Vehicle vehicle) throws NoParkingSpotAvailableException {
+    public void parkVehicle(Vehicle vehicle) throws NoParkingSpotAvailableException {
 
         for(int floor=0; floor<this.floors; ++floor){
             String ticket = "";
             try{
                 ticket = this.parkingFloors.get(floor).parkVehicle(vehicle);
-                return  ticket;
+                System.out.println("Parked vehicle. Ticket ID: "+ ticket);
             }catch (NoParkingSpotAvailableException e){
 
             }
@@ -51,7 +53,7 @@ public class ParkingLot {
         return Integer.parseInt(ticketParts[2]);
     }
 
-    public Vehicle unparkVehicle(String ticket) throws InvalidParkingTicketException {
+    public void unparkVehicle(String ticket) throws InvalidParkingTicketException {
 
         int floor = this.getFloorFromTicket(ticket);
         if(floor<=0 || floor>=this.floors){
@@ -59,13 +61,13 @@ public class ParkingLot {
         }
 
         Vehicle unparkedVehicle = this.parkingFloors.get(floor-1).unparkVehicle(ticket);
-        return unparkedVehicle;
+        System.out.println("Unparked vehicle with Registration Number: " +
+                    unparkedVehicle.getRegistration() +
+                    "and Color: " +
+                    unparkedVehicle.getColor());
     }
 
     public void getFreeSlotsNumberForVehicleType(VehicleType vehicleType){
-        /*
-            No. of free slots for CAR on Floor 1: 3
-        */
         for(int floor=0; floor<this.floors; ++floor) {
             int freeSlots =  this.parkingFloors.get(floor).getFreeSlotsNumberForVehicleType(vehicleType);
             System.out.println("No. of free slots for " + vehicleType + " on Floor " + (floor+1) + " : " + freeSlots );
@@ -87,13 +89,13 @@ public class ParkingLot {
 
     public void getOccupiedSlotsForVehicleType(VehicleType vehicleType){
         for(int floor=0; floor<this.floors; ++floor) {
-            TreeSet<ParkingSpot> freeSpots =  this.parkingFloors.get(floor).getOccupiedSlotsForVehicleType(vehicleType);
+            TreeSet<ParkingSpot> occupiedSpots =  this.parkingFloors.get(floor).getOccupiedSlotsForVehicleType(vehicleType);
             ArrayList<Integer> slotList = new ArrayList<Integer>();
-            for(ParkingSpot freeSpot : freeSpots){
-                int spot = this.getSpotNumberFromTicket(freeSpot.getSlotNumber());
+            for(ParkingSpot occupiedSpot : occupiedSpots){
+                int spot = this.getSpotNumberFromTicket(occupiedSpot.getSlotNumber());
                 slotList.add(spot);
             }
-            System.out.println("Free slots for " + vehicleType + " on Floor " + (floor+1) + " : " +  slotList.toString());
+            System.out.println("Occupied slots for " + vehicleType + " on Floor " + (floor+1) + " : " +  slotList.toString());
         }
     }
 }
